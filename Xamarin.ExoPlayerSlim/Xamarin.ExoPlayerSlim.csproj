@@ -67,17 +67,9 @@
     <AndroidStudioProject Include="/Users/ckapplmueller/repos/Xamarin.ExoPlayerSlim/java/ExoPlayerSlim" Module="exoplayerslim" GenerateBinding="True" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Binding.Helpers">
-      <Version>2.14.0.10</Version>
-    </PackageReference>
-    <PackageReference Include="NuGet.Build.Tasks.Pack">
-      <Version>2.14.0.10</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Google.Guava">
-      <Version>2.14.0.10</Version>
-    </PackageReference>
+    <PackageReference Include="Xamarin.Binding.Helpers" Version="0.1.0-ci516977228" />
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.9.1" />
+    <PackageReference Include="Xamarin.Google.Guava" Version="28.2.0.1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
