@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>Xamarin.ExoPlayerSlim</PackageId>
-    <Version>2.14.0.9</Version>
+    <Version>2.14.0.10</Version>
     <Description>Contains bindings for https://exoplayer.dev</Description>
     <Authors>Christian Kapplmüller</Authors>
     <Company>fun.music IT GmbH</Company>
@@ -68,15 +68,15 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Binding.Helpers">
-      <Version>2.14.0.9</Version>
+      <Version>2.14.0.10</Version>
     </PackageReference>
     <PackageReference Include="NuGet.Build.Tasks.Pack">
-      <Version>2.14.0.9</Version>
+      <Version>2.14.0.10</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Xamarin.Google.Guava">
-      <Version>2.14.0.9</Version>
+      <Version>2.14.0.10</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
