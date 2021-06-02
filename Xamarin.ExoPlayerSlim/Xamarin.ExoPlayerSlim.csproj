@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>Xamarin.ExoPlayerSlim</PackageId>
-    <Version>2.14.0.6</Version>
+    <Version>2.14.0.8</Version>
     <Description>Contains bindings for https://exoplayer.dev</Description>
     <Authors>Christian Kapplmüller</Authors>
     <Company>fun.music IT GmbH</Company>
@@ -64,7 +64,7 @@
     <TransformFile Include="Transforms\EnumMethods.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidStudioProject Include="/Users/ckapplmueller/repos/ExoPlayerSlim" Module="exoplayerslim" GenerateBinding="True" />
+    <AndroidStudioProject Include="../java/ExoPlayerSlim" Module="exoplayerslim" GenerateBinding="True" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Binding.Helpers">
