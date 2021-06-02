@@ -1,0 +1,48 @@
+trigger:
+  branches:
+    include:
+      - refs/tags/release-bindings-v*
+
+pr: none
+
+pool:
+  vmImage: 'macOS-10.15'
+
+variables:
+  - group: nuget.org
+
+steps:
+
+- bash: |
+    echo "##vso[task.setvariable variable=bindingsVersion]$(cat Xamarin.ExoPlayerSlim/Xamarin.ExoPlayerSlim.csproj | grep '<Version>' | awk -F '[<>]' '{print $3}')"
+
+- bash: |
+    echo "##vso[build.updatebuildnumber]production-xamarin-exoplayerslim-$(Build.SourceBranchName)-$(Build.BuildId)"
+
+- bash: |
+    if [[ "$(Build.SourceBranchName)" != *"$(bindingsVersion)" ]]; then
+      echo "mismatch between tag $(Build.SourceBranchName) and nuget version $(bindingsVersion)"
+      exit 1
+    fi
+
+- bash: |
+    cd Xamarin.ExoPlayerSlim
+    msbuild /t:Restore /p:Configuration=Release
+    msbuild /t:Build /p:Configuration=Release
+    msbuild /t:Pack /p:Configuration=Release
+
+- bash: |
+    dotnet nuget push Xamarin.ExoPlayerSlim/nugetoutput/Xamarin.ExoPlayerSlim.*.nupkg -k "$(nugetOrgApiKey)" -s https://api.nuget.org/v3/index.json
+
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github.com_thisisthekap'
+    repositoryName: 'thisisthekap/Xamarin.Amplitude.Android'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'userSpecifiedTag'
+    tag: '$(Build.SourceBranchName)'
+    title: 'Xamarin.ExoPlayerSlim $(bindingsVersion)'
+    assets: 'Xamarin.ExoPlayerSlim/nugetoutput/Xamarin.ExoPlayerSlim.*.nupkg'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'issueBased'
