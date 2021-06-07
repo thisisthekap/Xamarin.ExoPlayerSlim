@@ -1,5 +1,5 @@
 pr:
-  - master
+  - main
 
 pool:
   vmImage: 'macOS-10.15'
@@ -18,12 +18,13 @@ steps:
   displayName: Build Release Nuget
 
 - bash: |
+    cd Xamarin.ExoPlayerSlim.UsageChecker
     msbuild /t:Restore
-  displayName: Restore Solution
+  displayName: Restore UsageChecker
 
 - task: XamarinAndroid@1
   displayName: Build UsageChecker
   inputs:
-    projectFile: 'Xamarin.ExoPlayerSlim.UsageChecker/Xamarin.Amplitude.Android.UsageChecker.csproj'
+    projectFile: 'Xamarin.ExoPlayerSlim.UsageChecker/Xamarin.ExoPlayerSlim.UsageChecker.csproj'
     msbuildArguments: '/t:SignAndroidPackage /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=usagechecker.jks /p:AndroidSigningKeyAlias=usagechecker /p:AndroidSigningKeyPass=usagechecker /p:AndroidSigningStorePass=usagechecker'
     createAppPackage: true

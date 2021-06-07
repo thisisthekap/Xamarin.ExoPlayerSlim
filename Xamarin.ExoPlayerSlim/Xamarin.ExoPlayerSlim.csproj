@@ -10,6 +10,11 @@
     <PackageOutputPath>nugetoutput</PackageOutputPath>
   </PropertyGroup>
   <PropertyGroup>
+    <HomeDir>$(UserProfile)</HomeDir>
+    <HomeDir Condition="'$(HomeDir)' == ''">$(Home)</HomeDir>
+    <ExoPlayerJavaProjectPath>$(MSBuildProjectDirectory)\..\java\ExoPlayerSlim</ExoPlayerJavaProjectPath>
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
@@ -64,19 +69,24 @@
     <TransformFile Include="Transforms\EnumMethods.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidStudioProject Include="/Users/ckapplmueller/repos/Xamarin.ExoPlayerSlim/java/ExoPlayerSlim" Module="exoplayerslim" GenerateBinding="True" />
+    <AndroidStudioProject Include="$(ExoPlayerJavaProjectPath)" Module="exoplayerslim" GenerateBinding="True" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Binding.Helpers" Version="0.1.0-ci516977228" />
-    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.9.1" />
+    <PackageReference Include="Xamarin.Binding.Helpers" Version="0.1.0-ci516977228">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.9.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Xamarin.Google.Guava" Version="28.2.0.1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
+    <Exec Command="./gradlew build" ConsoleToMsBuild="true" WorkingDirectory="$(ExoPlayerJavaProjectPath)" />
   </Target>
-  <Target Name="AfterBuild">
+  <Target Name="AfterClean">
+    <Exec Command="./gradlew clean" ConsoleToMsBuild="true" WorkingDirectory="$(ExoPlayerJavaProjectPath)" />
   </Target>
-  -->
 </Project>
