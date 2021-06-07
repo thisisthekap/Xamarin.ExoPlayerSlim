@@ -64,7 +64,7 @@
     <TransformFile Include="Transforms\EnumMethods.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidStudioProject Include="/Users/ckapplmueller/repos/Xamarin.ExoPlayerSlim/java/ExoPlayerSlim" Module="exoplayerslim" GenerateBinding="True" />
+    <AndroidStudioProject Include="$(MSBuildProjectDirectory)\..\java\ExoPlayerSlim" Module="exoplayerslim" GenerateBinding="True" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Binding.Helpers" Version="0.1.0-ci516977228" />
