@@ -5,9 +5,10 @@ import android.view.View;
 import java.io.Closeable;
 
 public interface ExoPlayerSlim extends Closeable {
-    void AddListener(ExoPlayerSlimListener listener);
 
-    boolean RemoveListener(ExoPlayerSlimListener listener);
+    void addListener(ExoPlayerSlimListener listener);
+
+    boolean removeListener(ExoPlayerSlimListener listener);
 
     void initializeFromUrl(String url);
 
@@ -27,7 +28,7 @@ public interface ExoPlayerSlim extends Closeable {
 
     void setPlayWhenReady(boolean playWhenReady);
 
-    void AttachPlayerView(View playerView, boolean useNativeControls, int aspectRatio);
+    void attachPlayerView(View playerView, boolean useNativeControls, int aspectRatio);
 
-    void DetachPlayerView(View playerView);
+    void detachPlayerView(View playerView);
 }

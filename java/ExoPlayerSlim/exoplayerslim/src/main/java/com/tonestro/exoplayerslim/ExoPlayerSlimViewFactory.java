@@ -10,7 +10,7 @@ public class ExoPlayerSlimViewFactory {
     private ExoPlayerSlimViewFactory() {
     }
 
-    public static View Create(Context context) {
+    public static View create(Context context) {
         return new PlayerView(context);
     }
 }
