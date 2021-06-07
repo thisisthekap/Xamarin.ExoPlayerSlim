@@ -6,7 +6,7 @@ As this is a slim binding library, this repository is NOT aiming for full API co
 
 ## NuGet Feed
 
-NuGet packages are built using Azure DevOps: [![Build Status](https://funmusic.visualstudio.com/Xamarin%20ExoPlayerSlim/_apis/build/status/Xamarin.ExoPlayerSlim%20public?branchName=refs%2Ftags%2Frelease-bindings-v2.14.0.13)](https://funmusic.visualstudio.com/Xamarin%20ExoPlayerSlim/_build/latest?definitionId=170&branchName=refs%2Ftags%2Frelease-bindings-v2.14.0.13)
+NuGet packages are built using Azure DevOps: [![Build Status](https://funmusic.visualstudio.com/Xamarin%20ExoPlayerSlim/_apis/build/status/Xamarin.ExoPlayerSlim%20public?branchName=refs%2Ftags%2Frelease-bindings-v2.14.0.15)](https://funmusic.visualstudio.com/Xamarin%20ExoPlayerSlim/_build/latest?definitionId=170&branchName=refs%2Ftags%2Frelease-bindings-v2.14.0.15)
 
 NuGet packages are published on [nuget.org](https://www.nuget.org/packages/Xamarin.ExoPlayerSlim/).
 
