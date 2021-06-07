@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>Xamarin.ExoPlayerSlim</PackageId>
-    <Version>2.14.0.13</Version>
+    <Version>2.14.0.14</Version>
     <Description>Contains bindings for https://exoplayer.dev</Description>
     <Authors>Christian Kapplmüller</Authors>
     <Company>fun.music IT GmbH</Company>
