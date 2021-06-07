@@ -11,7 +11,6 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.ui.PlayerView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +18,7 @@ import java.util.List;
 class ExoPlayerSlimImpl implements ExoPlayerSlim {
 
     private final SimpleExoPlayer player;
+    private final DelegatingPlayerListener delegatingPlayerListener;
     private final List<ExoPlayerSlimListener> listeners = Collections.synchronizedList(new ArrayList<>());
 
     public ExoPlayerSlimImpl(Context context) {
@@ -29,16 +29,17 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
                 .build(), true);
         player.setHandleAudioBecomingNoisy(true);
         player.setWakeMode(C.WAKE_MODE_NONE);
-        player.addListener(new DelegatingPlayerListener(this));
+        delegatingPlayerListener = new DelegatingPlayerListener(this);
+        player.addListener(delegatingPlayerListener);
     }
 
     @Override
-    public void AddListener(ExoPlayerSlimListener listener) {
+    public void addListener(ExoPlayerSlimListener listener) {
         listeners.add(listener);
     }
 
     @Override
-    public boolean RemoveListener(ExoPlayerSlimListener listener) {
+    public boolean removeListener(ExoPlayerSlimListener listener) {
         return listeners.remove(listener);
     }
 
@@ -90,7 +91,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
     }
 
     @Override
-    public void AttachPlayerView(View playerView, boolean useNativeControls, int aspectRatio) {
+    public void attachPlayerView(View playerView, boolean useNativeControls, int aspectRatio) {
         if (playerView == null) {
             throw new NullPointerException("playerView must not be null");
         }
@@ -104,7 +105,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
     }
 
     @Override
-    public void DetachPlayerView(View playerView) {
+    public void detachPlayerView(View playerView) {
         if (playerView == null) {
             throw new NullPointerException("playerView must not be null");
         }
@@ -118,7 +119,8 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
+        player.removeListener(delegatingPlayerListener);
         player.release();
     }
 
@@ -138,7 +140,6 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
         @Override
         public void onIsPlayingChanged(boolean isPlaying) {
             exoPlayerSlim.notifyIsPlayingChanged(isPlaying);
-
         }
 
         @Override
