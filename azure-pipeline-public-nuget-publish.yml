@@ -37,7 +37,7 @@ steps:
 - task: GitHubRelease@1
   inputs:
     gitHubConnection: 'github.com_thisisthekap'
-    repositoryName: 'thisisthekap/Xamarin.Amplitude.Android'
+    repositoryName: 'thisisthekap/Xamarin.ExoPlayerSlim'
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'userSpecifiedTag'
