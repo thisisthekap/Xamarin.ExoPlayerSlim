@@ -91,6 +91,16 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
     }
 
     @Override
+    public void setRepeatMode(int repeatMode) {
+        player.setRepeatMode(repeatMode);
+    }
+
+    @Override
+    public int getRepeatMode() {
+        return player.getRepeatMode();
+    }
+
+    @Override
     public void attachPlayerView(View playerView, boolean useNativeControls, int aspectRatio) {
         if (playerView == null) {
             throw new NullPointerException("playerView must not be null");
