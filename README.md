@@ -20,3 +20,15 @@ The versioning scheme of `Xamarin.ExoPlayerSlim` is derived from the versioning 
 |:--|:--|:--|
 | 1.2.3 | 1.2.3.1 | First version of bindings for 1.2.3 |
 | 1.2.3 | 1.2.3.17 | Bindings for 1.2.3 containing fixes |
+
+### Troubleshooting
+
+If you experience issues like `java.lang.ClassNotFoundException: Didn't find class "androidx.core.app.CoreComponentFactory"` or `java.lang.NullPointerException: No suitable media source factory found for content type: 2`, extend your proguard configuration like this:
+
+```
+# needed to fix exoplayer video playback
+
+-keep public class androidx.core.app.*
+-keep public class androidx.appcompat.widget.*
+-keep public class com.google.android.exoplayer2.** { *; }
+```
