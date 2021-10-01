@@ -4,16 +4,23 @@ import android.content.Context;
 import android.view.View;
 
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.audio.AudioAttributes;
+import com.google.android.exoplayer2.mediacodec.MediaCodecInfo;
+import com.google.android.exoplayer2.mediacodec.MediaCodecSelector;
+import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.util.MimeTypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER;
 
 class ExoPlayerSlimImpl implements ExoPlayerSlim {
 
@@ -22,6 +29,25 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
     private final List<ExoPlayerSlimListener> listeners = Collections.synchronizedList(new ArrayList<>());
 
     public ExoPlayerSlimImpl(Context context) {
+        DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(context.getApplicationContext())
+                .setExtensionRendererMode(EXTENSION_RENDERER_MODE_PREFER).setMediaCodecSelector(
+                        new MediaCodecSelector() {
+                            @Override
+                            public List<MediaCodecInfo> getDecoderInfos(String mimeType,
+                                                                        boolean requiresSecureDecoder, boolean requiresTunnelingDecoder)
+                                    throws MediaCodecUtil.DecoderQueryException {
+                                List<MediaCodecInfo> decoderInfos = MediaCodecSelector.DEFAULT
+                                        .getDecoderInfos(mimeType, requiresSecureDecoder, requiresTunnelingDecoder);
+                                if (MimeTypes.VIDEO_H264.equals(mimeType)) {
+                                    // copy the list because MediaCodecSelector.DEFAULT returns an unmodifiable list
+                                    decoderInfos = new ArrayList<>(decoderInfos);
+                                    Collections.reverse(decoderInfos);
+                                }
+                                return decoderInfos;
+                            }
+                        });
+        renderersFactory.setEnableDecoderFallback(true);
+
         player = new SimpleExoPlayer.Builder(context).build();
         player.setAudioAttributes(new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
