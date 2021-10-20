@@ -48,7 +48,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
                         });
         renderersFactory.setEnableDecoderFallback(true);
 
-        player = new SimpleExoPlayer.Builder(context).build();
+        player = new SimpleExoPlayer.Builder(context, renderersFactory).build();
         player.setAudioAttributes(new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
                 .setContentType(C.CONTENT_TYPE_MUSIC)
