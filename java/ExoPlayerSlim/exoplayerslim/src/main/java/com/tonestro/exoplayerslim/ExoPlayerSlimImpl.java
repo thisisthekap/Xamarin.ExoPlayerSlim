@@ -29,23 +29,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
     private final List<ExoPlayerSlimListener> listeners = Collections.synchronizedList(new ArrayList<>());
 
     public ExoPlayerSlimImpl(Context context) {
-        DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(context.getApplicationContext())
-                .setExtensionRendererMode(EXTENSION_RENDERER_MODE_PREFER).setMediaCodecSelector(
-                        new MediaCodecSelector() {
-                            @Override
-                            public List<MediaCodecInfo> getDecoderInfos(String mimeType,
-                                                                        boolean requiresSecureDecoder, boolean requiresTunnelingDecoder)
-                                    throws MediaCodecUtil.DecoderQueryException {
-                                List<MediaCodecInfo> decoderInfos = MediaCodecSelector.DEFAULT
-                                        .getDecoderInfos(mimeType, requiresSecureDecoder, requiresTunnelingDecoder);
-                                if (MimeTypes.VIDEO_H264.equals(mimeType)) {
-                                    // copy the list because MediaCodecSelector.DEFAULT returns an unmodifiable list
-                                    decoderInfos = new ArrayList<>(decoderInfos);
-                                    Collections.reverse(decoderInfos);
-                                }
-                                return decoderInfos;
-                            }
-                        });
+        DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(context.getApplicationContext());
         renderersFactory.setEnableDecoderFallback(true);
 
         player = new SimpleExoPlayer.Builder(context, renderersFactory).build();
