@@ -3,28 +3,24 @@ package com.tonestro.exoplayerslim;
 import android.content.Context;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.audio.AudioAttributes;
-import com.google.android.exoplayer2.mediacodec.MediaCodecInfo;
-import com.google.android.exoplayer2.mediacodec.MediaCodecSelector;
-import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.util.MimeTypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER;
-
 class ExoPlayerSlimImpl implements ExoPlayerSlim {
 
-    private final SimpleExoPlayer player;
+    private final ExoPlayer player;
     private final DelegatingPlayerListener delegatingPlayerListener;
     private final List<ExoPlayerSlimListener> listeners = Collections.synchronizedList(new ArrayList<>());
 
@@ -32,7 +28,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
         DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(context.getApplicationContext());
         renderersFactory.setEnableDecoderFallback(true);
 
-        player = new SimpleExoPlayer.Builder(context, renderersFactory).build();
+        player = new ExoPlayer.Builder(context, renderersFactory).build();
         player.setAudioAttributes(new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
                 .setContentType(C.CONTENT_TYPE_MUSIC)
@@ -135,7 +131,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
         PlayerView actualPlayerView = (PlayerView) playerView;
         actualPlayerView.setPlayer(null);
         actualPlayerView.setUseController(false);
-        actualPlayerView.setResizeMode(AspectRatios.Fit);
+        actualPlayerView.setResizeMode((int)AspectRatios.Fit);
     }
 
     @Override
@@ -153,8 +149,15 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
         }
 
         @Override
-        public void onPlayerError(ExoPlaybackException error) {
+        public void onPlayerError(PlaybackException error) {
             exoPlayerSlim.notifyPlayerError(error);
+        }
+
+        @Override
+        public void onPlayerErrorChanged(@Nullable PlaybackException error) {
+            if (error != null) {
+                exoPlayerSlim.notifyPlayerError(error);
+            }
         }
 
         @Override
