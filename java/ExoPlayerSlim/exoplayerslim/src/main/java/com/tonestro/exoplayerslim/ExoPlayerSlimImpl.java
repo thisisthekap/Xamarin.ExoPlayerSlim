@@ -123,7 +123,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
     @Override
     public void detachPlayerView(View playerView) {
         if (playerView == null) {
-            throw new NullPointerException("playerView must not be null");
+            return;
         }
         if (!(playerView instanceof PlayerView)) {
             throw new ClassCastException("playerView is not instance of PlayerView");

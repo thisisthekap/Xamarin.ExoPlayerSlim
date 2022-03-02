@@ -449,3 +449,5 @@ FodyWeavers.xsd
 *.tlog
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,rider
+
+.DS_Store
