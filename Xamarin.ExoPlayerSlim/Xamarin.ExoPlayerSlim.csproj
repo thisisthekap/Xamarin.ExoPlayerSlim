@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>Xamarin.ExoPlayerSlim</PackageId>
-    <Version>2.16.1.12</Version>
+    <Version>2.16.1.13</Version>
     <Description>Contains bindings for https://exoplayer.dev</Description>
     <Authors>Christian Kapplmüller</Authors>
     <Company>fun.music IT GmbH</Company>
@@ -72,7 +72,7 @@
     <AndroidStudioProject Include="$(ExoPlayerJavaProjectPath)" Module="exoplayerslim" GenerateBinding="True" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Binding.Helpers" Version="0.1.0-ci516977228">
+    <PackageReference Include="Xamarin.Binding.Helpers" Version="0.1.0-ci2462442718">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
