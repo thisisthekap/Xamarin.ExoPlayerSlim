@@ -3,7 +3,7 @@ package com.tonestro.exoplayerslim;
 import android.content.Context;
 import android.view.View;
 
-import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 public class ExoPlayerSlimViewFactory {
 
@@ -11,6 +11,6 @@ public class ExoPlayerSlimViewFactory {
     }
 
     public static View create(Context context) {
-        return new PlayerView(context);
+        return new StyledPlayerView(context);
     }
 }

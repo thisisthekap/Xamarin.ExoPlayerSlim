@@ -3,6 +3,7 @@ package com.tonestro.exoplayerslim;
 import android.content.Context;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.exoplayer2.C;
@@ -12,7 +13,7 @@ import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.audio.AudioAttributes;
-import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +32,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
         player = new ExoPlayer.Builder(context, renderersFactory).build();
         player.setAudioAttributes(new AudioAttributes.Builder()
                 .setUsage(C.USAGE_MEDIA)
-                .setContentType(C.CONTENT_TYPE_MUSIC)
+                .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
                 .build(), true);
         player.setHandleAudioBecomingNoisy(true);
         player.setWakeMode(C.WAKE_MODE_NONE);
@@ -68,7 +69,10 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
 
     @Override
     public void stop(boolean reset) {
-        player.stop(reset);
+        player.stop();
+        if (reset) {
+            player.clearMediaItems();
+        }
     }
 
     @Override
@@ -111,10 +115,10 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
         if (playerView == null) {
             throw new NullPointerException("playerView must not be null");
         }
-        if (!(playerView instanceof PlayerView)) {
+        if (!(playerView instanceof StyledPlayerView)) {
             throw new ClassCastException("playerView is not instance of PlayerView");
         }
-        PlayerView actualPlayerView = (PlayerView) playerView;
+        StyledPlayerView actualPlayerView = (StyledPlayerView) playerView;
         actualPlayerView.setUseController(useNativeControls);
         actualPlayerView.setResizeMode(aspectRatio);
         actualPlayerView.setPlayer(player);
@@ -125,13 +129,13 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
         if (playerView == null) {
             return;
         }
-        if (!(playerView instanceof PlayerView)) {
+        if (!(playerView instanceof StyledPlayerView)) {
             throw new ClassCastException("playerView is not instance of PlayerView");
         }
-        PlayerView actualPlayerView = (PlayerView) playerView;
+        StyledPlayerView actualPlayerView = (StyledPlayerView) playerView;
         actualPlayerView.setPlayer(null);
         actualPlayerView.setUseController(false);
-        actualPlayerView.setResizeMode((int)AspectRatios.Fit);
+        actualPlayerView.setResizeMode((int) AspectRatios.Fit);
     }
 
     @Override
@@ -149,7 +153,7 @@ class ExoPlayerSlimImpl implements ExoPlayerSlim {
         }
 
         @Override
-        public void onPlayerError(PlaybackException error) {
+        public void onPlayerError(@NonNull PlaybackException error) {
             exoPlayerSlim.notifyPlayerError(error);
         }
 
