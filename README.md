@@ -4,6 +4,10 @@ Slim bindings for [ExoPlayer](https://github.com/google/ExoPlayer). Using the aw
 
 As this is a slim binding library, this repository is NOT aiming for full API coverage. Please see the java code located in https://github.com/thisisthekap/Xamarin.ExoPlayerSlim/tree/main/java/ExoPlayerSlim/exoplayerslim/src/main/java/com/tonestro/exoplayerslim on how the slim binding uses ExoPlayer.
 
+## About this Repository
+
+This repository is not going to support newer versions of the ExoPlayer SDK. For newer versions of the SDK, and support for .NET 8 iOS (MAUI), please see https://github.com/thisisthekap/Tonestro.Maui.ExoPlayerSlim.Android.
+
 ## NuGet Feed
 
 NuGet packages are built using Azure DevOps: [![Build Status](https://funmusic.visualstudio.com/Xamarin%20ExoPlayerSlim/_apis/build/status/Xamarin.ExoPlayerSlim%20public?branchName=refs%2Ftags%2Frelease-bindings-v2.14.0.15)](https://funmusic.visualstudio.com/Xamarin%20ExoPlayerSlim/_build/latest?definitionId=170&branchName=refs%2Ftags%2Frelease-bindings-v2.14.0.15)
